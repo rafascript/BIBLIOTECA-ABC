@@ -29,7 +29,7 @@ public class BibliotecaService {
 				}
 			}
 		
-		return "carro não encontrado para alterar";
+		return "biblioteca não encontrado para alterar";
 	}
 	
 	public List<Biblioteca> listAll(){

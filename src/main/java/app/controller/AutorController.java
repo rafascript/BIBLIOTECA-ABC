@@ -8,28 +8,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.Biblioteca;
-import app.service.BibliotecaService;
+import app.entity.Autor;
+import app.service.AutorService;
 
 @RestController
-@RequestMapping("/api/biblioteca")
-public class BibliotecaController {
+@RequestMapping("/api/autor")
+public class AutorController {
 	
 	@Autowired
-	private BibliotecaService bibliotecaService;
+	private AutorService autorService;
 	
-	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Biblioteca biblioteca){
+	public ResponseEntity<String> save(@RequestBody Autor autor){
 		
 		try {
 			
-			String mensagem = this.bibliotecaService.save(biblioteca);
+			String mensagem = this.autorService.save(autor);
 			return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
@@ -41,11 +39,11 @@ public class BibliotecaController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Biblioteca biblioteca, @PathVariable long id){
+	public ResponseEntity<String> update(@RequestBody Autor autor, @PathVariable long id){
 		
 		try {
 			
-			String mensagem = this.bibliotecaService.update(id, biblioteca);
+			String mensagem = this.autorService.update(id, autor);
 			return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
@@ -57,11 +55,11 @@ public class BibliotecaController {
 	}
 	
 	@GetMapping("/listAll")
-	public ResponseEntity<List<Biblioteca>> listaAll(){
+	public ResponseEntity<List<Autor>> listaAll(){
 		
 		try {
 			
-			List<Biblioteca> lista = this.bibliotecaService.listAll();
+			List<Autor> lista = this.autorService.listAll();
 			return new ResponseEntity<>(lista, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
@@ -72,13 +70,13 @@ public class BibliotecaController {
 		
 	}
 	
-	@GetMapping("/findById/{idBiblioteca}")
-	public ResponseEntity<Biblioteca> findById(@PathVariable long idBiblioteca){
+	@GetMapping("/findById/{idAutor}")
+	public ResponseEntity<Autor> findById(@PathVariable long idAutor){
 		
 		try {
 			
-			Biblioteca biblioteca = this.bibliotecaService.findById(idBiblioteca);
-			return new ResponseEntity<>(biblioteca, HttpStatus.OK);
+			Autor autor = this.autorService.findById(idAutor);
+			return new ResponseEntity<>(autor, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			
@@ -87,13 +85,13 @@ public class BibliotecaController {
 		}
 		
 	}
-
-	@DeleteMapping("/delete/{idBiblioteca}")
-	public ResponseEntity<String> delete(@PathVariable long idBiblioteca){
+	
+	@DeleteMapping("/delete/{idAutor}")
+	public ResponseEntity<String> delete(@PathVariable long idAutor){
 		
 		try {
 			
-			String mensagem = this.bibliotecaService.delete(idBiblioteca);
+			String mensagem = this.autorService.delete(idAutor);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 			
 		} catch (Exception e) {

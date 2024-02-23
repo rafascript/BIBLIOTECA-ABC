@@ -9,10 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Biblioteca {
+public class Livro {
 	
 	private long id;
-	private String nome;
-	private String telefone;
+	private String issn;
+	private String titulo;
+	private String sinopse;
+	private long ano;
+	private long paginas;
 
 }

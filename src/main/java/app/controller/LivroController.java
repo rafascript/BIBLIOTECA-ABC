@@ -14,38 +14,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.Biblioteca;
-import app.service.BibliotecaService;
+import app.entity.Livro;
+import app.service.LivroService;
 
 @RestController
-@RequestMapping("/api/biblioteca")
-public class BibliotecaController {
+@RequestMapping("/api/livro")
+public class LivroController {
 	
 	@Autowired
-	private BibliotecaService bibliotecaService;
+	private LivroService livroService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Biblioteca biblioteca){
+	public ResponseEntity<String> save(@RequestBody Livro livro){
 		
 		try {
 			
-			String mensagem = this.bibliotecaService.save(biblioteca);
-			return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
+			String mensagem = this.livroService.save(livro);
+			return new ResponseEntity<String>(mensagem, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			
-			return new ResponseEntity<String>("O seguinte erro foi encontrado: "+e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("O seguinte erro  foi encontrado: "+e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
 			
 		}
 		
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Biblioteca biblioteca, @PathVariable long id){
+	public ResponseEntity<String> update(@RequestBody Livro livro, @PathVariable long id){
 		
 		try {
 			
-			String mensagem = this.bibliotecaService.update(id, biblioteca);
+			String mensagem = this.livroService.update(id, livro);
 			return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
@@ -57,11 +57,11 @@ public class BibliotecaController {
 	}
 	
 	@GetMapping("/listAll")
-	public ResponseEntity<List<Biblioteca>> listaAll(){
+	public ResponseEntity<List<Livro>> listAll(){
 		
 		try {
 			
-			List<Biblioteca> lista = this.bibliotecaService.listAll();
+			List<Livro> lista = this.livroService.listAll();
 			return new ResponseEntity<>(lista, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
@@ -72,35 +72,35 @@ public class BibliotecaController {
 		
 	}
 	
-	@GetMapping("/findById/{idBiblioteca}")
-	public ResponseEntity<Biblioteca> findById(@PathVariable long idBiblioteca){
+	@GetMapping("/findById/{idLivro}")
+	public ResponseEntity<Livro> findById(@PathVariable long idLivro){
 		
 		try {
 			
-			Biblioteca biblioteca = this.bibliotecaService.findById(idBiblioteca);
-			return new ResponseEntity<>(biblioteca, HttpStatus.OK);
+			Livro livro = this.livroService.findById(idLivro);
+			return new ResponseEntity<>(livro, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			
 		}
-		
+				
 	}
-
-	@DeleteMapping("/delete/{idBiblioteca}")
-	public ResponseEntity<String> delete(@PathVariable long idBiblioteca){
+	
+	@DeleteMapping("/delete/{idLivro}")
+	public ResponseEntity<String> delete(@PathVariable long idLivro){
 		
-		try {
+	try {
 			
-			String mensagem = this.bibliotecaService.delete(idBiblioteca);
+			String mensagem = this.livroService.delete(idLivro);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			
 			return new ResponseEntity<String>(""+e.getMessage(), HttpStatus.BAD_REQUEST);
 			
-		}
+		}		
 		
 	}
 

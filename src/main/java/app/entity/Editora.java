@@ -9,10 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Biblioteca {
+public class Editora {
 	
 	private long id;
 	private String nome;
+	private String endereço;
 	private String telefone;
 
 }
