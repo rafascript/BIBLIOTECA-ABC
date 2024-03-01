@@ -3,75 +3,43 @@ package app.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Livro;
+import app.repository.LivroRepository;
 
 @Service
 public class LivroService {
 	
-List<Livro> lista = new ArrayList<>();
+	@Autowired
+	private LivroRepository livroRepository;
+	
+	List<Livro> lista = new ArrayList<>();
 	
 	public String save(Livro livro) {
-		lista.add(livro);
+		this.livroRepository.save(livro);
 		return livro.getTitulo()+ " salvo com sucesso";
 	}
 	
 	public String update(long id, Livro livro) {
-		
-		lista = this.listAll();
-		
-		if(lista != null)
-			for(int i = 0; i < lista.size(); i++) {
-				if(lista.get(i).getId() == id) {
-					lista.set(i,  livro);
-					return livro.getTitulo()+ " alterado com sucesso";
-				}
-			}
-		
+		livro.setId(id);
+		this.livroRepository.save(livro);
 		return "biblioteca não encontrado para alterar";
 	}
 	
 	public List<Livro> listAll(){
-		
-		Livro livro = new Livro(1, "info", "Mar aberto", "Sinopse1", 2006, 398);
-		Livro livro2 = new Livro(2, "info2", "Motos rápidas", "Sinopse2", 2012, 961);
-		Livro livro3 = new Livro(3, "info3", "Acelerando", "Sinopse3", 2005, 792);
-		
-		lista.add(livro);
-		lista.add(livro2);
-		lista.add(livro3);
-		
-		return lista;
+		return this.livroRepository.findAll();
 	}
 	
 	public Livro findById(long idLivro) {
-		
-		lista = this.listAll();
-		
-		if(lista != null)
-			for(int i=0; i<lista.size(); i++) {				
-				if(lista.get(i).getId() == idLivro) {
-					return lista.get(i);
-				}				
-			}
-		
-		return null;
+		Livro livro = this.livroRepository.findById(idLivro).get();
+		return livro;
 		
 	}
 	
 	public String delete(long idLivro) {
-		
-		lista = this.listAll();
-		
-		if(lista != null)
-			for(int i=0; i<lista.size(); i++) {
-				if(lista.get(i).getId() == idLivro) {
-					lista.remove(lista.get(i));
-					return "Deletado com sucesso";
-				}
-			}
-		
+		this.livroRepository.deleteById(idLivro);
 		return "Não encontrado";
 
 }
